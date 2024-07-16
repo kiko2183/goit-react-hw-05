@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { searchMovies } from '../api/tmdb';
+import { searchMovies } from '../../api/tmdb';
 
 const MoviesPage = () => {
   const [query, setQuery] = useState('');
