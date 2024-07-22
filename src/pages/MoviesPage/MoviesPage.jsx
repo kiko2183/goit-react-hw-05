@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { searchMovies } from '../../api/tmdb';
 import MovieList from '../../components/MovieList/MovieList';
 import styles from './MoviesPage.module.css';
@@ -7,10 +7,21 @@ const MoviesPage = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
 
-  const handleSearch = async (event) => {
+  useEffect(() => {
+    const fetchMovies = async () => {
+      if (query.trim() !== '') {
+        const results = await searchMovies(query);
+        setMovies(results);
+      } else {
+        setMovies([]);
+      }
+    };
+
+    fetchMovies();
+  }, [query]);
+
+  const handleSearch = (event) => {
     event.preventDefault();
-    const results = await searchMovies(query);
-    setMovies(results);
   };
 
   return (
